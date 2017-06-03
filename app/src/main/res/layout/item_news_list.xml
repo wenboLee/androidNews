@@ -2,40 +2,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lighter_gray">
+    android:background="@color/lighter_gray"
+    android:paddingTop="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp">
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:lines="1"
-            android:paddingTop="6dp"
+            android:layout_marginTop="6dp"
+            android:lines="2"
             android:text="标题"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/imageRecycle"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/title"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/pic_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:scaleType="fitStart" />
+
+            <ImageView
+                android:id="@+id/pic_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:clickable="false"
+                android:scaleType="fitStart" />
+
+            <ImageView
+                android:id="@+id/pic_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:clickable="false"
+                android:scaleType="fitStart" />
+
+        </LinearLayout>
+
+        <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/imageRecycle"-->
+        <!--android:layout_below="@id/title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="70dp" />-->
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_below="@id/imageRecycle"
+            android:layout_marginTop="6dp"
             android:paddingBottom="4dp"
-            android:text="date"
+            android:text="日期"
             android:textSize="12sp" />
 
         <TextView
             android:id="@+id/author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/imageRecycle"
+            android:layout_marginTop="6dp"
             android:paddingBottom="4dp"
             android:text="作者"
             android:textSize="12sp" />

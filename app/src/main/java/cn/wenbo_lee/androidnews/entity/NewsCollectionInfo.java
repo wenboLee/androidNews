@@ -2,6 +2,8 @@ package cn.wenbo_lee.androidnews.entity;
 
 import org.litepal.crud.DataSupport;
 
+import cn.wenbo_lee.androidnews.api.pojo.MyNews;
+
 /**
  * Created by Administrator on 2017/6/2.
  */
@@ -9,6 +11,7 @@ import org.litepal.crud.DataSupport;
 public class NewsCollectionInfo extends DataSupport {
 
     private int id;
+    private String username;
     private String title;
     private String date;
     private String author_name;
@@ -20,12 +23,37 @@ public class NewsCollectionInfo extends DataSupport {
     private String type;
     private String realtype;
 
+    public NewsCollectionInfo() {
+    }
+
+    public NewsCollectionInfo(MyNews.ResultBean.DataBean dataBean) {
+        this.uniquekey = dataBean.getUniquekey();
+        this.title = dataBean.getTitle();
+        this.date = dataBean.getDate();
+        this.author_name = dataBean.getAuthor_name();
+        this.thumbnail_pic_s = dataBean.getThumbnail_pic_s();
+        this.thumbnail_pic_s02 = dataBean.getThumbnail_pic_s02();
+        this.thumbnail_pic_s03 = dataBean.getThumbnail_pic_s03();
+        this.thumbnail_pic_s03 = dataBean.getThumbnail_pic_s03();
+        this.url = dataBean.getUrl();
+        this.type = dataBean.getType();
+        this.realtype = dataBean.getRealtype();
+    }
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTitle() {
@@ -112,6 +140,7 @@ public class NewsCollectionInfo extends DataSupport {
     public String toString() {
         return "NewsCollectionInfo{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", date='" + date + '\'' +
                 ", author_name='" + author_name + '\'' +

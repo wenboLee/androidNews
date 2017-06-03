@@ -3,6 +3,8 @@ package cn.wenbo_lee.androidnews.api.pojo;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.wenbo_lee.androidnews.entity.NewsCollectionInfo;
+
 /**
  * Created by Administrator on 2016/12/21/021.
  */
@@ -92,6 +94,22 @@ public class MyNews {
             private String uniquekey;
             private String type;
             private String realtype;
+
+            public DataBean() {
+            }
+
+            public DataBean(NewsCollectionInfo newsCollectionInfo) {
+                this.title = newsCollectionInfo.getTitle();
+                this.date = newsCollectionInfo.getDate();
+                this.author_name = newsCollectionInfo.getAuthor_name();
+                this.thumbnail_pic_s = newsCollectionInfo.getThumbnail_pic_s();
+                this.thumbnail_pic_s02 = newsCollectionInfo.getThumbnail_pic_s02();
+                this.thumbnail_pic_s03 = newsCollectionInfo.getThumbnail_pic_s03();
+                this.url = newsCollectionInfo.getUrl();
+                this.uniquekey = newsCollectionInfo.getUniquekey();
+                this.type = newsCollectionInfo.getType();
+                this.realtype = newsCollectionInfo.getRealtype();
+            }
 
             public String getTitle() {
                 return title;

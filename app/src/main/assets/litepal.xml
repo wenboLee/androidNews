@@ -2,7 +2,7 @@
 <litepal>
 
     <dbname value="demo" />
-    <version value="1" />
+    <version value="3" />
 
     <list>
         <mapping class="cn.wenbo_lee.androidnews.entity.UserInfo" />
