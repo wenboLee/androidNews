@@ -129,7 +129,7 @@ public class NewsFragment extends Fragment {
         recycleView.setLayoutManager(new LinearLayoutManager(recycleView.getContext()));
         recycleView.setAdapter(myNewsListAdapter);
         recycleView.setItemAnimator(new DefaultItemAnimator());
-        recycleView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST,10));
+        recycleView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST,4));
         return view;
     }
 
