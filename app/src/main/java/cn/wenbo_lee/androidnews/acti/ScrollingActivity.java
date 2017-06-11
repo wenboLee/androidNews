@@ -4,18 +4,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,12 +60,14 @@ public class ScrollingActivity extends AppCompatActivity {
     private WebView webX5;
     private TextView title;
     private ImageView titleBackground;
+    private NestedScrollView rootView;
 
     private boolean isCollect = false;
 
     private IWXAPI api;
     private NewsCollectionInfo collectionInfo;
     private SharePreferenceUtil sharePreferenceUtil;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,38 +88,50 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                shareToWX();
-                Toast.makeText(this, "正在分享", Toast.LENGTH_SHORT).show();
-
+                showSharePop();
                 break;
+
             case R.id.action_up:
-                Toast.makeText(this, "点赞", Toast.LENGTH_SHORT).show();
+                if (flag) {
+                    item.setIcon(R.mipmap.ic_thum_up_white);
+                    flag = false;
+                } else {
+                    item.setIcon(R.mipmap.ic_thum_up_accent);
+                    flag = true;
+                }
                 break;
         }
         return true;
     }
 
-    /**
-     * 分享链接到微信好友
-     */
-    private void shareToWX() {
-        WXWebpageObject webpage = new WXWebpageObject();
-        webpage.webpageUrl = dataBean.getUrl();
-        WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = dataBean.getTitle();
-        msg.description = dataBean.getTitle();
-        Bitmap bmp = titleBackground.getDrawingCache();
-        if (bmp == null) {
-            bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.news);
-        }
-        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 150, 150, true);
-        bmp.recycle();
-        msg.thumbData = WXUtils.bmpToByteArray(thumbBmp, true);
-        SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = WXUtils.buildTransaction("webpage");
-        req.message = msg;
-        req.scene = session;
-        api.sendReq(req);
+    private void showSharePop() {
+        PopupWindow popupWindow = new PopupWindow(this);
+        View inflate = LayoutInflater.from(this).inflate(R.layout.pop_share, null);
+        inflate.findViewById(R.id.session).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneSession);
+            }
+        });
+        inflate.findViewById(R.id.timeline).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneTimeline);
+            }
+        });
+        inflate.findViewById(R.id.favorite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneFavorite);
+            }
+        });
+        popupWindow.setContentView(inflate);
+        popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        ColorDrawable dw = new ColorDrawable(0xb0000000);
+        popupWindow.setBackgroundDrawable(dw);
+        popupWindow.showAtLocation(rootView, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
     private void initView() {
@@ -126,6 +146,7 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
+        rootView = (NestedScrollView) findViewById(R.id.rootView);
         title = (TextView) findViewById(R.id.title);
         titleBackground = (ImageView) findViewById(R.id.titleBackground);
 

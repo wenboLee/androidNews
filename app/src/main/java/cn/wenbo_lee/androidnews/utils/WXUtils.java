@@ -12,10 +12,20 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 
 import junit.framework.Assert;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
+
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+
+import cn.wenbo_lee.androidnews.R;
+import cn.wenbo_lee.androidnews.api.pojo.MyNews;
 
 /**
  * Created by Administrator on 2017/6/6.
@@ -23,6 +33,27 @@ import android.util.Log;
 
 public class WXUtils {
     private static final String TAG = "SDK_Sample.Util";
+
+    public static boolean showShare(Context context, MyNews.ResultBean.DataBean article, Bitmap bitmap, IWXAPI api, int scene) {
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = article.getUrl();
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = article.getTitle();
+        msg.description = "作者：" + article.getAuthor_name() + " " + article.getTitle();
+        Bitmap bmp = bitmap;
+        if (bmp == null) {
+            bmp = BitmapFactory.decodeResource(context.getResources(), R.mipmap.news);
+        }
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+        bmp.recycle();
+        msg.thumbData = bmpToByteArray(thumbBmp, true);
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("webpage");
+        req.message = msg;
+        req.scene = scene;
+        return api.sendReq(req);
+    }
 
     public static String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();

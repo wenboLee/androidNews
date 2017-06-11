@@ -17,4 +17,8 @@
     <string name="tips">提示</string>
     <string name="cancelCollect">确定取消收藏？</string>
     <string name="confirm">确定</string>
+
+    <string name="share_session">微信好友</string>
+    <string name="share_timeline">朋友圈</string>
+    <string name="share_favorite">微信收藏</string>
 </resources>
