@@ -63,8 +63,8 @@
 	-->
 	<!--要分享微信小应用程序时用userName,path-->
     <Wechat
-        Id="4"
-        SortId="4"
+        Id="1"
+        SortId="1"
         AppId="wx4868b35061f87885"
         AppSecret="64020361b8ec4c99936c0e3999a9f249"
 		userName="gh_afb25ac019c9"

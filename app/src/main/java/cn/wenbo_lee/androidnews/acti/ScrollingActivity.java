@@ -26,11 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.WebView;
 
 import org.litepal.crud.DataSupport;
@@ -109,19 +104,19 @@ public class ScrollingActivity extends AppCompatActivity {
         inflate.findViewById(R.id.session).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneSession);
+//                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneSession);
             }
         });
         inflate.findViewById(R.id.timeline).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneTimeline);
+//                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneTimeline);
             }
         });
         inflate.findViewById(R.id.favorite).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneFavorite);
+//                WXUtils.showShare(ScrollingActivity.this, dataBean, titleBackground.getDrawingCache(), api, SendMessageToWX.Req.WXSceneFavorite);
             }
         });
         popupWindow.setContentView(inflate);
