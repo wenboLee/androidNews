@@ -20,32 +20,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.smtt.sdk.WebView;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
-import cn.wenbo_lee.androidnews.Contants;
+import cn.wenbo_lee.androidnews.Constants;
 import cn.wenbo_lee.androidnews.R;
 import cn.wenbo_lee.androidnews.api.pojo.MyNews;
 import cn.wenbo_lee.androidnews.entity.NewsCollectionInfo;
 import cn.wenbo_lee.androidnews.utils.SharePreferenceUtil;
-import cn.wenbo_lee.androidnews.utils.WXUtils;
 
 
 public class ScrollingActivity extends AppCompatActivity {
 
     private static final String TAG = "ScrollingActivity";
 
-    private int session = SendMessageToWX.Req.WXSceneSession;
-    private int timeline = SendMessageToWX.Req.WXSceneTimeline;
-    private int favorite = SendMessageToWX.Req.WXSceneFavorite;
+
 
     private MyNews.ResultBean.DataBean dataBean;
 
@@ -57,7 +49,6 @@ public class ScrollingActivity extends AppCompatActivity {
 
     private boolean isCollect = false;
 
-    private IWXAPI api;
     private NewsCollectionInfo collectionInfo;
     private SharePreferenceUtil sharePreferenceUtil;
 
@@ -80,7 +71,7 @@ public class ScrollingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                shareToWX();
+//                shareToWX();
                 Toast.makeText(this, "正在分享", Toast.LENGTH_SHORT).show();
 
                 break;
@@ -91,9 +82,9 @@ public class ScrollingActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
+/*    *//**
      * 分享链接到微信好友
-     */
+     *//*
     private void shareToWX() {
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = dataBean.getUrl();
@@ -112,7 +103,7 @@ public class ScrollingActivity extends AppCompatActivity {
         req.message = msg;
         req.scene = session;
         api.sendReq(req);
-    }
+    }*/
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -172,12 +163,11 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
     private void initData() {
+//        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID);
+
         dataBean = (MyNews.ResultBean.DataBean) getIntent().getSerializableExtra("bean");
         title.setText(dataBean.getAuthor_name());
         Glide.with(this).load(dataBean.getThumbnail_pic_s()).into(titleBackground);
-
-        api = WXAPIFactory.createWXAPI(this, Contants.APP_ID);
-//        toolbar.setSubtitle(dataBean.getTitle());
 
         Log.e(TAG, "title " + toolbar.getTitle());
         sharePreferenceUtil = SharePreferenceUtil.getInstance(this, "login");

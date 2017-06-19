@@ -4,7 +4,7 @@ package cn.wenbo_lee.androidnews;
  * Created by Administrator on 2017/4/23.
  */
 
-public class Contants {
+public class Constants {
     public static final String APP_ID = "wx09569d25f6b0c83d";
     public static String[] titles = new String[]{"头条", "社会", "国内", "国际", "娱乐","体育","军事","科技","财经","时尚"};
 

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.wenbo_lee.androidnews.Contants;
+import cn.wenbo_lee.androidnews.Constants;
 import cn.wenbo_lee.androidnews.view.DividerItemDecoration;
 import cn.wenbo_lee.androidnews.adapter.MyNewsListAdapter;
 import cn.wenbo_lee.androidnews.R;
@@ -73,7 +73,7 @@ public class NewsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Long time = sharePreferenceUtil.getLong(Contants.types[mPage], 0L);
+        Long time = sharePreferenceUtil.getLong(Constants.types[mPage], 0L);
         /*
          * 刷新新闻的条件：
          * 1，第一次进入，long为0
@@ -135,9 +135,9 @@ public class NewsFragment extends Fragment {
 
     private void initNews() {
         //存储当前时间
-        sharePreferenceUtil.setLong(Contants.types[mPage], System.currentTimeMillis());
-        Log.e(TAG, "title " + Contants.types[mPage]);
-        Call<MyNews> myNews = MyNewsUtils.getMyNews(Contants.types[mPage]);
+        sharePreferenceUtil.setLong(Constants.types[mPage], System.currentTimeMillis());
+        Log.e(TAG, "title " + Constants.types[mPage]);
+        Call<MyNews> myNews = MyNewsUtils.getMyNews(Constants.types[mPage]);
         myNews.enqueue(new Callback<MyNews>() {
             @Override
             public void onResponse(Call<MyNews> call, Response<MyNews> response) {

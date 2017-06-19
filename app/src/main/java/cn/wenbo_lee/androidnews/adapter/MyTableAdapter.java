@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import cn.wenbo_lee.androidnews.Contants;
+import cn.wenbo_lee.androidnews.Constants;
 import cn.wenbo_lee.androidnews.frag.NewsFragment;
 
 
@@ -15,7 +15,7 @@ import cn.wenbo_lee.androidnews.frag.NewsFragment;
 
 public class MyTableAdapter extends FragmentPagerAdapter {
 
-    public final int COUNT = Contants.titles.length;
+    public final int COUNT = Constants.titles.length;
 
     private Context context;
 
@@ -36,6 +36,6 @@ public class MyTableAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return Contants.titles[position];
+        return Constants.titles[position];
     }
 }
